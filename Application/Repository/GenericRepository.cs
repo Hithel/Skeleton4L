@@ -9,6 +9,15 @@ namespace Application.Repository;
     {
         private readonly ApiContext _context;
 
+        public async virtual Task<T> FindFirst(Expression<Func<T, bool>> expression)
+        {
+            if (expression != null){
+                var rst = await _context.Set<T>().Where(expression).ToListAsync();
+                return rst.First();
+            }
+            return await _context.Set<T>().FirstAsync();
+        }
+
         public GenericRepository(ApiContext context)
         {
             _context = context;

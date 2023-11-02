@@ -29,10 +29,11 @@ public class UserService : IUserService
         var user = new User
         {
             Email = registerDto.Email,
-            Username = registerDto.Username
+            Username = registerDto.Username,
+            DateCreated = registerDto.DateCreated
         };
 
-        user.Password = _passwordHasher.HashPassword(user, registerDto.Password); //Encrypt password
+        user.Password = _passwordHasher.HashPassword(user, registerDto.Password);
 
         var existingUser = _unitOfWork.Users
                                     .Find(u => u.Username.ToLower() == registerDto.Username.ToLower())
@@ -79,6 +80,7 @@ public class UserService : IUserService
 
         if (result == PasswordVerificationResult.Success)
         {
+            dataUserDto.Message = "EL CODIGO QR SE HA ENVIADO AL EMAIL!! <3";
             dataUserDto.IsAuthenticated = true;
             JwtSecurityToken jwtSecurityToken = CreateJwtToken(user);
             dataUserDto.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);

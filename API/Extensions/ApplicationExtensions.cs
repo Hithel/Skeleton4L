@@ -28,7 +28,8 @@ namespace API.Extensions;
         {
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();       
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuth, Auth>();       
         }
 
         public static void ConfigureApiVersioning(this IServiceCollection services)

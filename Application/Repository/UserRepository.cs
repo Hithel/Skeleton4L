@@ -15,6 +15,18 @@ namespace Application.Repository;
             _context = context;
         }
 
+         public async virtual Task<bool> IsExists (string userName)
+        {
+            if (!string.IsNullOrEmpty(userName))
+            {
+                var exists = await _context.Users.AnyAsync(p => p.Username == userName);
+                return exists; 
+            }
+
+            return false;
+        }
+
+
         public async Task<User> GetByRefreshTokenAsync(string refreshToken)
         {
             return await _context.Users

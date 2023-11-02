@@ -16,7 +16,7 @@ namespace Persistence.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Domain.Entities.RefreshToken", b =>
@@ -70,6 +70,12 @@ namespace Persistence.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("DateCreated")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .HasColumnType("varchar")
+                        .HasColumnName("datacreated");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -81,6 +87,10 @@ namespace Persistence.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("varchar")
                         .HasColumnName("password");
+
+                    b.Property<string>("TwoStepSecret")
+                        .HasColumnType("longtext")
+                        .HasColumnName("twostepsecret");
 
                     b.Property<string>("Username")
                         .IsRequired()
